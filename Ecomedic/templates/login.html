@@ -1,0 +1,75 @@
+<!-- app_principal/templates/login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'app_principal/css/login.css' %}">
+  <title>Login | Signup - Ecomedic</title>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-title">
+        <img src="{% static 'app_principal/images/logo.png' %}" alt="Logo" class="logo">
+        <h1>Bienvenido a Ecomedic</h1>
+      </div>
+    </header>
+
+    <section class="intro-text">
+      <p>¿Desea registrarse o iniciar sesión?</p>
+    </section>
+
+    <section class="options">
+      <button onclick="showForm('signup')" class="btn-option">Registro</button>
+      <button onclick="showForm('login')" class="btn-option">Iniciar sesión</button>
+    </section>
+      
+    <section id="signup" class="form-section hidden">
+      <h2>Registro</h2>
+      <div id="signup-error" class="error-message"></div> <!-- Mensaje de error -->
+      <div id="signup-success" class="success-message"></div> <!-- Mensaje de éxito -->
+      <form id="signup-form" class="form">
+        {% csrf_token %}
+        <label for="persona_responsable">Persona Responsable:</label>
+        <input type="text" id="persona_responsable" name="persona_responsable" placeholder="Ingrese el nombre completo" required>
+        
+        <label for="institucion">Institución:</label>
+        <input type="text" id="institucion" name="institucion" placeholder="Ingrese el nombre de la institución" required>
+        
+        <label for="area">Área:</label>
+        <input type="text" id="area" name="area" placeholder="Ingrese el área de trabajo" required>
+        
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" placeholder="Ingrese el nombre de usuario" required>
+        
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+        
+        <button type="button" class="btn-submit" onclick="submitSignup()">Registrarse</button>
+      </form>
+    </section>
+      
+    <section id="login" class="form-section hidden">
+      <h2>Iniciar sesión</h2>
+      <div id="login-error" class="error-message"></div> <!-- Mensaje de error -->
+      <div id="login-success" class="success-message"></div> <!-- Mensaje de éxito (opcional) -->
+      <form id="login-form" class="form">
+        {% csrf_token %}
+        <label for="login-usuario">Usuario:</label>
+        <input type="text" id="login-usuario" name="usuario" placeholder="Ingrese su usuario" required>
+        
+        <label for="login-password">Contraseña:</label>
+        <input type="password" id="login-password" name="password" placeholder="Ingrese su contraseña" required>
+        
+        <button type="button" class="btn-submit" onclick="submitLogin()">Iniciar sesión</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- SweetAlert para mensajes atractivos -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static 'app_principal/js/login.js' %}"></script>
+</body>
+</html>

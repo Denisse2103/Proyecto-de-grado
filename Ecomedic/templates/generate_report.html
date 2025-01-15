@@ -1,0 +1,76 @@
+<!-- app_principal/templates/generate_report.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Reporte</title>
+    <link rel="stylesheet" href="{% static 'app_principal/css/generate_report.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generar Reporte</h1>
+
+        <!-- Formulario Oculto para CSRF Token -->
+        <form id="csrf-form" style="display: none;">
+            {% csrf_token %}
+        </form>
+
+        <div class="section">
+            <div class="section-title">
+                Sala seleccionada
+            </div>
+            <select id="sala" name="sala" onchange="fetchEquipos()">
+                <option value="">Seleccione una sala</option>
+                {% for sala in salas %}
+                    <option value="{{ sala }}">{{ sala }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                Mostrar los equipos con los que cuenta la sala
+            </div>
+            <ul id="equipos">
+                <!-- Equipos serán listados dinámicamente por JavaScript -->
+            </ul>
+        </div>
+
+        <form id="generate-report-form">
+            <div class="section input-group">
+                <div>
+                    <label for="fechaInicio">Día de inicio</label>
+                    <input type="date" id="fechaInicio" name="fechaInicio" required>
+                </div>
+                <div>
+                    <label for="fechaFin">Día de fin</label>
+                    <input type="date" id="fechaFin" name="fechaFin" required disabled>
+                </div>
+            </div>
+
+            <!-- Contenedor para los inputs de horas por día -->
+            <div class="section" id="horas-container">
+                <div class="section-title">
+                    Cantidad de horas que se usan los equipos por día
+                </div>
+                <!-- Los inputs de horas por día se generarán aquí -->
+                <!-- Ejemplo de input dinámico -->
+                <div class="hora-dia">
+                    <label for="horaDia1">Horas Día 1:</label>
+                    <input type="number" id="horaDia1" name="horaDia1" class="hora-dia-input" min="0" max="24" step="0.1" required>
+                </div>
+                <!-- Más inputs según sea necesario -->
+            </div>
+
+            <button type="button" onclick="generarReporte()">Generar Reporte</button>
+        </form>
+    </div>
+
+    <!-- SweetAlert para mensajes atractivos -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'app_principal/js/generate_report.js' %}"></script>
+</body>
+</html>

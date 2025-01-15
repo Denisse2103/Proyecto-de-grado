@@ -1,0 +1,283 @@
+/* app_principal/static/app_principal/css/manage_clasificacion_residuos.css */
+
+/* Establecer box-sizing globalmente */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+
+    /* Centrar el contenedor usando Flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    width: 95%;
+    background: #f3f5f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #00796b;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Contenedor para los botones */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+/* Botón "Agregar Nueva Clasificación" */
+.add-residuo-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.add-residuo-btn:hover {
+    background-color: #1E88E5;
+}
+
+/* Botón "Eliminar Todas las Clasificaciones" */
+.delete-all-residuo-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-all-residuo-btn:hover {
+    background-color: #da190b;
+}
+
+/* Tabla de Clasificaciones de Residuos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 12px;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Establecer una altura mínima para las filas de la tabla */
+table tr {
+    min-height: 60px; /* Ajusta este valor según tus necesidades */
+}
+
+/* Ajustes para la columna de Acciones */
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center;     /* Centrar verticalmente */
+    gap: 10px;               /* Espacio entre los botones */
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    width: 100%;             /* Asegurar que ocupe todo el ancho de la celda */
+    height: 100%;            /* Asegurar que ocupe toda la altura de la celda */
+    box-sizing: border-box;  /* Incluir padding y border en el cálculo del tamaño */
+}
+
+/* Botones dentro de la columna de Acciones */
+.action-buttons button {
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 80px; /* Establecer un ancho mínimo adecuado */
+    height: 40px;    /* Mantener una altura consistente */
+    box-sizing: border-box; /* Asegurar que el padding esté incluido en el tamaño */
+}
+
+/* Botón "Editar" */
+.edit-residuo-btn {
+    background-color: #FFC107;
+    color: white;
+}
+
+.edit-residuo-btn:hover {
+    background-color: #FFB300;
+}
+
+/* Botón "Eliminar" */
+.delete-residuo-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-residuo-btn:hover {
+    background-color: #da190b;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: fadeIn 0.3s;
+}
+
+/* Animación para el modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* Formulario en el Modal */
+#addResiduoForm, #editResiduoForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#addResiduoForm label,
+#editResiduoForm label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#addResiduoForm input,
+#editResiduoForm input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 40px; /* Igualar altura al de los botones */
+}
+
+#addResiduoForm button[type="submit"],
+#editResiduoForm button[type="submit"] {
+    background-color: #00796b;
+    color: white;
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addResiduoForm button[type="submit"]:hover,
+#editResiduoForm button[type="submit"]:hover {
+    background-color: #005f56;
+}
+
+/* Responsividad para los botones y formularios */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 10px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}

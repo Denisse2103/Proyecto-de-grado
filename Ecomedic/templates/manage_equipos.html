@@ -1,0 +1,219 @@
+<!-- app_principal/templates/manage_equipos.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Equipos Biomédicos</title>
+    <link rel="stylesheet" href="{% static 'app_principal/css/manage_equipos.css' %}">
+    <!-- SweetAlert para mensajes atractivos -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container" data-get-equipos-url="{% url 'get_equipos_by_sala' %}">
+        <h1>Gestionar Equipos Biomédicos</h1>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <!-- Contenedor para el selector de Salas y los botones -->
+        <div class="control-container">
+            <div class="select-container">
+                <label for="select_sala">Seleccionar Sala:</label>
+                <select id="select_sala" name="sala">
+                    <option value="">-- Seleccionar Sala --</option>
+                    {% for sala in salas %}
+                        <option value="{{ sala }}">{{ sala }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="button-container">
+                <button id="addEquipoBtn" class="add-equipo-btn">Agregar Nuevo Equipo</button>
+                <button id="deleteAllEquiposBtn" class="delete-all-equipo-btn">Eliminar Todos los Equipos</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Serie</th>
+                    <th>Clasificación por riesgo</th>
+                    <th>Registro INVIMA</th>
+                    <th>Lote</th>
+                    <th>Vida útil</th>
+                    <th>Voltaje (V)</th>
+                    <th>Corriente (A)</th>
+                    <th>Potencia (W)</th>
+                    <th>Kwh</th>
+                    <th>Consumibles (Desechables)</th>
+                    <th>Accesorios (No desechables)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="equipos_table_body">
+                <!-- Los equipos serán cargados dinámicamente aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para Agregar Equipo Biomédico -->
+    <div id="addEquipoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Agregar Nuevo Equipo Biomédico</h2>
+            <form id="addEquipoForm">
+                {% csrf_token %}
+                <label for="add_nombre">Nombre:</label>
+                <input type="text" id="add_nombre" name="nombre" required>
+
+                <label for="add_marca">Marca:</label>
+                <input type="text" id="add_marca" name="marca" required>
+
+                <label for="add_modelo">Modelo:</label>
+                <input type="text" id="add_modelo" name="modelo" required>
+
+                <label for="add_serie">Serie:</label>
+                <input type="text" id="add_serie" name="serie" required>
+
+                <label for="add_clasificacion_riesgo">Clasificación por riesgo:</label>
+                <input type="text" id="add_clasificacion_riesgo" name="clasificacion_riesgo" required>
+
+                <label for="add_registro_invima">Registro INVIMA:</label>
+                <input type="text" id="add_registro_invima" name="registro_invima" required>
+
+                <label for="add_lote">Lote:</label>
+                <input type="text" id="add_lote" name="lote" required>
+
+                <label for="add_vida_util">Vida útil:</label>
+                <input type="text" id="add_vida_util" name="vida_util" required>
+
+                <label for="add_voltaje">Voltaje (V):</label>
+                <input type="text" id="add_voltaje" name="voltaje" required>
+
+                <label for="add_corriente">Corriente (A):</label>
+                <input type="text" id="add_corriente" name="corriente" required>
+
+                <label for="add_potencia">Potencia (W):</label>
+                <input type="text" id="add_potencia" name="potencia" required>
+
+                <label for="add_kwh">Kwh:</label>
+                <input type="text" id="add_kwh" name="kwh" required>
+
+                <label for="add_consumibles">Consumibles (Desechables):</label>
+                <input type="text" id="add_consumibles" name="consumibles" required>
+
+                <label for="add_accesorios">Accesorios (No desechables):</label>
+                <input type="text" id="add_accesorios" name="accesorios" required>
+
+                <!-- Nuevos Campos Agregados -->
+                <label for="add_consumibles_dia">Consumibles por día:</label>
+                <input type="text" id="add_consumibles_dia" name="consumibles_dia" min="0" required>
+
+                <label for="add_peso_kg">Peso (kg):</label>
+                <input type="number" step="0.01" id="add_peso_kg" name="peso_kg" min="0" required>
+
+                <label for="add_clasificacion">Clasificación:</label>
+                <input type="text" id="add_clasificacion" name="clasificacion" required>
+
+                <!-- Asignar a Salas -->
+                <label for="add_salas">Asignar a Salas:</label>
+                <div id="add_salas_container">
+                    {% for sala in salas %}
+                        <div class="sala-checkbox">
+                            <input type="checkbox" id="add_sala_{{ forloop.counter }}" name="salas" value="{{ sala }}">
+                            <label for="add_sala_{{ forloop.counter }}">{{ sala }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit">Agregar Equipo</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Equipo Biomédico -->
+    <div id="editEquipoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Editar Equipo Biomédico</h2>
+            <form id="editEquipoForm">
+                {% csrf_token %}
+                <input type="hidden" id="original_nombre_equipo" name="original_nombre">
+
+                <label for="edit_nombre">Nombre:</label>
+                <input type="text" id="edit_nombre" name="nombre" required>
+
+                <label for="edit_marca">Marca:</label>
+                <input type="text" id="edit_marca" name="marca" required>
+
+                <label for="edit_modelo">Modelo:</label>
+                <input type="text" id="edit_modelo" name="modelo" required>
+
+                <label for="edit_serie">Serie:</label>
+                <input type="text" id="edit_serie" name="serie" required>
+
+                <label for="edit_clasificacion_riesgo">Clasificación por riesgo:</label>
+                <input type="text" id="edit_clasificacion_riesgo" name="clasificacion_riesgo" required>
+
+                <label for="edit_registro_invima">Registro INVIMA:</label>
+                <input type="text" id="edit_registro_invima" name="registro_invima" required>
+
+                <label for="edit_lote">Lote:</label>
+                <input type="text" id="edit_lote" name="lote" required>
+
+                <label for="edit_vida_util">Vida útil:</label>
+                <input type="text" id="edit_vida_util" name="vida_util" required>
+
+                <label for="edit_voltaje">Voltaje (V):</label>
+                <input type="text" id="edit_voltaje" name="voltaje" required>
+
+                <label for="edit_corriente">Corriente (A):</label>
+                <input type="text" id="edit_corriente" name="corriente" required>
+
+                <label for="edit_potencia">Potencia (W):</label>
+                <input type="text" id="edit_potencia" name="potencia" required>
+
+                <label for="edit_kwh">Kwh:</label>
+                <input type="text" id="edit_kwh" name="kwh" required>
+
+                <label for="edit_consumibles">Consumibles (Desechables):</label>
+                <input type="text" id="edit_consumibles" name="consumibles" required>
+
+                <label for="edit_accesorios">Accesorios (No desechables):</label>
+                <input type="text" id="edit_accesorios" name="accesorios" required>
+
+                <!-- Nuevos Campos Agregados -->
+                <label for="edit_consumibles_dia">Consumibles por día:</label>
+                <input type="text" id="edit_consumibles_dia" name="consumibles_dia" min="0" required>
+
+                <label for="edit_peso_kg">Peso (kg):</label>
+                <input type="number" step="0.01" id="edit_peso_kg" name="peso_kg" min="0" required>
+
+                <label for="edit_clasificacion">Clasificación:</label>
+                <input type="text" id="edit_clasificacion" name="clasificacion" required>
+
+                <!-- Asignar a Salas -->
+                <label for="edit_salas">Asignar a Salas:</label>
+                <div id="edit_salas_container">
+                    {% for sala in salas %}
+                        <div class="sala-checkbox">
+                            <input type="checkbox" id="edit_sala_{{ forloop.counter }}" name="salas" value="{{ sala }}">
+                            <label for="edit_sala_{{ forloop.counter }}">{{ sala }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script para Manejar la Interactividad -->
+    <script src="{% static 'app_principal/js/manage_equipos.js' %}"></script>
+</body>
+</html>

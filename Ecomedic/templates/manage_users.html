@@ -1,0 +1,92 @@
+<!-- app_principal/templates/manage_users.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Usuarios</title>
+    <link rel="stylesheet" href="{% static 'app_principal/css/manage_users.css' %}">
+    <!-- SweetAlert para mensajes atractivos -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestionar Usuarios</h1>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <!-- Botón para eliminar todos los usuarios -->
+        <div class="delete-all-container">
+            <button id="deleteAllBtn" class="delete-all-btn">Eliminar Todos los Usuarios</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Persona Responsable</th>
+                    <th>Institución</th>
+                    <th>Área</th>
+                    <th>Usuario</th>
+                    <th>Contraseña</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in usuarios %}
+                    <tr id="user-row-{{ user.usuario }}">
+                        <td>{{ user.persona_responsable }}</td>
+                        <td>{{ user.institucion }}</td>
+                        <td>{{ user.area }}</td>
+                        <td>{{ user.usuario }}</td>
+                        <td>*******</td> <!-- Ocultar la contraseña por seguridad -->
+                        <td>
+                            <button class="edit-btn" data-usuario="{{ user.usuario }}"
+                                    data-persona_responsable="{{ user.persona_responsable }}"
+                                    data-institucion="{{ user.institucion }}"
+                                    data-area="{{ user.area }}">
+                                Editar
+                            </button>
+                            <button class="delete-btn" data-usuario="{{ user.usuario }}">Eliminar</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para Editar Usuario -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Editar Usuario</h2>
+            <form id="editUserForm">
+                <input type="hidden" id="original_usuario" name="original_usuario">
+
+                <label for="persona_responsable">Persona Responsable:</label>
+                <input type="text" id="persona_responsable" name="persona_responsable" required>
+
+                <label for="institucion">Institución:</label>
+                <input type="text" id="institucion" name="institucion" required>
+
+                <label for="area">Área:</label>
+                <input type="text" id="area" name="area" required>
+
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" required>
+
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" name="contraseña" placeholder="******">
+                <small>Deja el campo vacío para mantener la contraseña actual.</small>
+
+                <button type="submit">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script para Manejar la Interactividad -->
+    <script src="{% static 'app_principal/js/manage_users.js' %}"></script>
+</body>
+</html>

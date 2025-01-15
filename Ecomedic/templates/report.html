@@ -1,0 +1,118 @@
+<!-- app_principal/templates/report.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'app_principal/css/report.css' %}">
+  <title>Reporte Ambiental</title>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-title">
+        <img src="{% static 'app_principal/images/logo.png' %}" alt="Logo" class="logo">
+        <h1>REPORTE AMBIENTAL ({{ usuario }})</h1>
+      </div>
+      <span class="report-number">No. {{ report_number }}</span>
+    </header>
+
+    <section class="info-general">
+      <h2>Información general</h2>
+      <p><strong>Persona responsable:</strong> {{ persona_responsable }}</p>
+      <p><strong>Institución:</strong> {{ institucion }}</p>
+      <p><strong>Área:</strong> {{ area }}</p>
+      <p><strong>Sala seleccionada:</strong> {{ sala_seleccionada }}</p>
+      <p><strong>Equipos con los que cuenta:</strong> {{ equipos | join:", " }}</p>
+      <p><strong>Intervalo de tiempo:</strong> {{ intervalo_tiempo }}</p>
+    </section>
+
+    <!-- Sección para mostrar Horas por Día -->
+    <section class="horas-dias">
+      <h2>Horas por Día</h2>
+      <ul>
+        {% for hora in horasPorDia %}
+          <li>Día {{ forloop.counter }}: {{ hora }} horas</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <!-- Sección de Métricas -->
+    <section class="metrics">
+      <div class="metric">
+        <span class="value">{{ consumo_energetico_kwh }} kWh</span>
+        <p>Consumo energético</p>
+      </div>
+      <div class="metric">
+        <span class="value">{{ emisiones_co2_kg }} kg</span>
+        <p>Emisiones de CO₂</p>
+      </div>
+      <div class="metric">
+        <span class="value">{{ produccion_residuos_kg }} kg</span>
+        <p>Producción de residuos</p>
+      </div>
+    </section>
+
+    <!-- Sección para los Gráficos -->
+    <section class="graphs">
+      <h2>Gráficos</h2>
+      <div class="graph-container">
+        <div class="graph">
+          <canvas id="consumoChart" 
+            data-consumo-por-dia='{{ consumoPorDia|safe }}' 
+            data-dias='{{ horasPorDia|length }}'></canvas>
+        </div>
+        <div class="graph">
+          <canvas id="emisionesChart" 
+            data-emisiones-por-dia='{{ emisionesPorDia|safe }}' 
+            data-dias='{{ horasPorDia|length }}'></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección para la Matriz de Aspectos e Impactos -->
+    <section class="matrix">
+        <h2>Matriz de aspectos e impactos de la sala</h2>
+        <div class="matrix-content">
+            <div class="stacked-bar">
+                <div class="bar low">
+                    <span class="label">BAJA</span>
+                    <span class="valueLow">{{ matrix_baja }}</span>
+                    <span class="value">8</span>
+                </div>
+                <div class="bar moderate">
+                    <span class="label">MODERADA</span>
+                    <span class="value">{{ matrix_moderate }}</span>
+                    <span class="value">12</span>
+                </div>
+                <div class="bar high">
+                    <span class="label">ALTA</span>
+                    <span class="value">{{ matrix_high }}</span>
+                    <span class="value">27</span>
+                </div>
+            </div>
+            <div class="matrix-description">
+                <p>
+                    Para el caso del consumo energético como aspecto y los impactos ambientales que tiene se obtuvo una importancia de {{ X }}, es decir, {{ N }}.
+                </p>
+            </div>
+        </div>
+    </section>
+  </div>
+
+  <!-- Formulario oculto para CSRF Token -->
+  <form id="csrf-form" method="post" style="display: none;">
+    {% csrf_token %}
+  </form>
+
+  <!-- Incluir Chart.js desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Incluir SweetAlert desde CDN (si usas Swal.fire) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Incluir report.js -->
+  <script src="{% static 'app_principal/js/report.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!-- app_principal/templates/base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ecomedic{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'app_principal/css/base.css' %}">
+    <!-- Puedes añadir otros enlaces a CSS o scripts aquí -->
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="{% url 'generate_report' %}">
+                    <img src="{% static 'app_principal/images/logo.png' %}" alt="Logo" class="logo">
+                </a>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="{% url 'manage_equipos' %}" class="navbar-link">Gestionar Equipos</a></li>
+                <li class="navbar-item"><a href="{% url 'manage_clasificacion_residuos' %}" class="navbar-link">Clasificación de Residuos</a></li>
+                <li class="navbar-item"><a href="{% url 'manage_salas' %}" class="navbar-link">Gestionar Salas</a></li>
+                <li class="navbar-item"><a href="{% url 'manage_users' %}" class="navbar-link">Gestionar Usuarios</a></li>
+                <li class="navbar-item"><a href="{% url 'generate_report' %}" class="navbar-link">Generar Reporte</a></li>
+                <li class="navbar-item"><a href="{% url 'logout' %}" class="navbar-link">Cerrar Sesión</a></li>
+            </ul>
+            <div class="navbar-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="content">
+        {% block content %}
+        <!-- El contenido específico de cada página se insertará aquí -->
+        {% endblock %}
+    </div>
+
+    <!-- Scripts JavaScript -->
+    <script src="{% static 'app_principal/js/navbar.js' %}"></script>
+</body>
+</html>

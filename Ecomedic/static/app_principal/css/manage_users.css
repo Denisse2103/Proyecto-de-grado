@@ -1,0 +1,230 @@
+/* app_principal/static/app_principal/css/manage_users.css */
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar padding predeterminado */
+    background-color: #ffffff;
+    color: #333;
+
+    /* Centrar el contenedor usando Flexbox */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
+    min-height: 100vh;       /* Altura mínima de la pantalla completa */
+}
+
+.container {
+    max-width: 1000px;
+    width: 90%; /* Para mantener responsividad en pantallas pequeñas */
+    background: #f3f5f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* Opcional: Añadir scroll si el contenido excede la altura del contenedor */
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #00796b;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Contenedor del botón "Eliminar Todos los Usuarios" */
+.delete-all-container {
+    text-align: right; /* Alinear el botón a la derecha */
+    margin-bottom: 15px;
+}
+
+/* Botón "Eliminar Todos los Usuarios" */
+.delete-all-btn {
+    background-color: #f44336; /* Rojo */
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-all-btn:hover {
+    background-color: #da190b;
+}
+
+/* Tabla de Usuarios */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 12px;
+}
+
+th {
+    background-color: #009076;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 8px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #4caf50; /* Verde */
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn {
+    background-color: #f44336; /* Rojo */
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #da190b;
+}
+
+/* Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en pantalla */
+    z-index: 1; /* Por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Habilitar scroll si es necesario */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semitransparente */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; /* Centrarse horizontalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Formulario en el Modal */
+#editUserForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#editUserForm label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#editUserForm input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#editUserForm button[type="submit"] {
+    background-color: #00796b;
+    color: white;
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#editUserForm button[type="submit"]:hover {
+    background-color: #005f56;
+}
+
+/* Responsividad para el botón "Eliminar Todos los Usuarios" */
+@media (max-width: 768px) {
+    .delete-all-container {
+        text-align: center; /* Centrar en pantallas pequeñas */
+    }
+
+    .delete-all-btn {
+        width: 100%; /* Ancho completo en pantallas pequeñas */
+        max-width: 200px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    #editUserForm button[type="submit"] {
+        padding: 8px;
+    }
+
+    .delete-all-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

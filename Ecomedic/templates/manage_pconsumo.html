@@ -1,0 +1,35 @@
+<!-- app_principal/templates/manage_pconsumo.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar PConsumo</title>
+    <link rel="stylesheet" href="{% static 'app_principal/css/manage_pconsumo.css' %}">
+    <!-- SweetAlert para mensajes atractivos -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gestionar PConsumo</h1>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form id="pconsumo-form">
+            {% csrf_token %}
+            <label for="baja">Valor Baja:</label>
+            <input type="text" id="baja" name="baja" value="{{ pconsumo.baja }}" required>
+
+            <label for="alta">Valor Alta:</label>
+            <input type="text" id="alta" name="alta" value="{{ pconsumo.alta }}" required>
+
+            <button type="button" onclick="updatePConsumo()">Guardar Cambios</button>
+        </form>
+    </div>
+
+    <script src="{% static 'app_principal/js/manage_pconsumo.js' %}"></script>
+</body>
+</html>

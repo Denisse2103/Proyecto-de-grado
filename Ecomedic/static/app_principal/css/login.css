@@ -1,0 +1,219 @@
+/* app_principal/static/app_principal/css/login.css */
+
+/* Establece box-sizing globalmente para facilitar el manejo de padding y border */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Asegura que el html y body ocupen toda la altura de la página */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Utiliza Flexbox para centrar el contenedor tanto horizontal como verticalmente */
+body {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;    /* Centra verticalmente */
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos del contenedor principal */
+.container {
+    max-width: 900px;
+    width: 100%;
+    background: #f3f5f9;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilos del encabezado */
+.header {
+    margin-bottom: 30px;
+}
+
+.logo-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Ajuste del tamaño del logo */
+.logo {
+    width: 150px; /* Aumenta el ancho del logo */
+    height: auto; /* Mantiene la proporción original */
+    margin-bottom: 10px;
+}
+
+/* Responsividad para el logo */
+@media (max-width: 768px) {
+    .logo {
+        width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        width: 80px;
+    }
+}
+
+.header h1 {
+    font-size: 26px;
+    color: #3da693;
+    margin: 0;
+}
+
+/* Texto introductorio */
+.intro-text p {
+    font-size: 18px;
+    color: #666;
+    margin: 20px 0;
+}
+
+/* Botones de opciones */
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.btn-option {
+    text-decoration: none;
+    background: #e0f2f1;
+    color: #3da693;
+    padding: 15px 30px;
+    border: 2px solid #3da693;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.btn-option:hover {
+    background: #3da693;
+    color: #fff;
+}
+
+/* Secciones de formularios */
+.form-section {
+    margin-top: 40px;
+    display: none; /* Oculta las secciones inicialmente */
+    text-align: left;
+}
+
+h2 {
+    font-size: 22px;
+    color: #3da693;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Mensajes de error y éxito */
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.success-message {
+    color: green;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Estilos de los formularios */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Estilos de las etiquetas */
+label {
+    font-size: 16px;
+    color: #333;
+    align-self: flex-start;
+    margin-left: 20%;
+    width: 60%;
+}
+
+/* Estilos de los campos de entrada */
+input, select {
+    width: 60%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #3da693;
+}
+
+/* Botones de envío */
+button {
+    background: #3da693;
+    color: #fff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+    align-self: center;
+}
+
+button:hover {
+    background: #2c816e;
+}
+
+/* Responsividad para los botones y formularios */
+@media (max-width: 768px) {
+    .form {
+        width: 100%;
+    }
+
+    label, input, select {
+        width: 80%;
+        margin-left: 10%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    label, input, select {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    button {
+        width: 80%;
+    }
+}

@@ -1,0 +1,329 @@
+/* app_principal/static/app_principal/css/report.css */
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #f3f5f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00796b;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 100px;
+    margin-right: 10px;
+    height: auto;
+}
+
+.header h1 {
+    font-size: 40px;
+    color: #00796b;
+    text-align: center;
+}
+
+.report-number {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Títulos secundarios */
+h2 {
+    color: #009076; /* Color para todos los h2 */
+}
+
+/* Sección de Información General */
+.info-general {
+    border-bottom: 2px solid #00796b; /* Añade la línea verde */
+    padding-bottom: 10px; /* Opcional: añade espacio debajo del contenido */
+    margin-bottom: 20px; /* Opcional: separa la sección siguiente */
+}
+
+/* Sección de Métricas */
+.metrics {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #00796b; /* Añade la línea verde */
+    padding-bottom: 10px; /* Opcional: añade espacio debajo del contenido */
+    margin-bottom: 20px; /* Opcional: separa la sección siguiente */
+}
+
+.metric {
+    text-align: center;
+    background: #e0f2f1;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 250px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+}
+
+.metric .value {
+    font-size: 36px;
+    font-weight: bold;
+    color: #009076;
+}
+
+/* Sección de Gráficos */
+.graph-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    border-bottom: 2px solid #00796b; /* Línea verde */
+}
+
+.graph {
+    width: 100%;
+    max-width: 400px;
+    height: 300px; /* Aumentar altura para mejor visibilidad */
+    background: #e0f7fa;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    padding: 20px; /* Añadir padding para el canvas */
+    box-sizing: border-box;
+}
+
+/* Sección de Matriz */
+.matrix {
+    margin-top: 30px;
+}
+
+.matrix-content {
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    gap: 20px; /* Espacio entre elementos */
+}
+
+/* Barra apilada */
+.stacked-bar {
+    width: 100%;
+    max-width: 150px;
+    height: 300px;
+    margin: 20px 0 20px 0; /* Eliminar 'auto' para alinear a la izquierda */
+    display: flex;
+    flex-direction: column-reverse;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f7f8fa;
+    align-self: flex-start; /* Alinear a la izquierda */
+}
+
+.bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.high {
+    background: #d32f2f;
+    height: 50%;
+}
+
+.moderate {
+    background: #8bc34a;
+    height: 30%;
+}
+
+.low {
+    background: #03a9f4;
+    height: 20%;
+}
+
+.bar .label {
+    position: absolute;
+    left: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.bar .value {
+    position: absolute;
+    right: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    top: 8px;
+}
+
+.bar .valueLow {
+    position: absolute;
+    right: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    top: 40px;
+}
+
+/* Descripción de la Matriz */
+.matrix-description {
+    flex: 1; /* Permite que este div ocupe el espacio restante */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.matrix-description p {
+    margin: 0; /* Elimina márgenes predeterminados */
+    padding: 0; /* Elimina padding predeterminado */
+    /* Opcional: añadir margen superior si es necesario */
+    /* margin-top: 10px; */
+}
+
+/* Estilos para los inputs dinámicos de horas por día */
+.hora-dia {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.hora-dia label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.hora-dia-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.hora-dia-input:focus {
+    border-color: #009076;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 144, 118, 0.5);
+}
+
+/* Botón de generación de reporte */
+button {
+    background-color: #009076;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #00796b;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .metrics {
+        flex-direction: column;
+    }
+
+    .metric {
+        width: 100%;
+        max-width: none;
+    }
+
+    .graph-container {
+        flex-direction: column;
+    }
+
+    .stacked-bar {
+        width: 100%;
+        max-width: 100px;
+    }
+
+    /* Ajustes para los inputs dinámicos en pantallas pequeñas */
+    .hora-dia-input {
+        max-width: none;
+        width: 100%;
+    }
+
+    /* Ajustes para la matriz en pantallas pequeñas */
+    .matrix-content {
+        flex-direction: column;
+        align-items: center; /* Alinear al centro cuando está en columna */
+    }
+
+    .info-general, .metrics {
+        border-bottom: 2px solid #00796b; /* Mantener la línea verde */
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 16px;
+    }
+
+    .metric .value {
+        font-size: 24px;
+    }
+
+    .stacked-bar {
+        max-width: 80px;
+    }
+
+    /* Ajustes para los gráficos en pantallas muy pequeñas */
+    .graph {
+        max-width: 100%;
+        height: 250px;
+    }
+
+    /* Ajustes para la matriz en pantallas muy pequeñas */
+    .matrix-content {
+        flex-direction: column;
+        align-items: center; /* Alinear al centro cuando está en columna */
+    }
+
+    .info-general, .metrics {
+        border-bottom: 2px solid #00796b; /* Mantener la línea verde */
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+}
